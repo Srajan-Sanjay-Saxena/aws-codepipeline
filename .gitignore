@@ -1,1 +1,6 @@
-./aws-build/node_modules
+# Ignore node_modules inside aws-build
+aws-build/node_modules/
+.vscode
+# Ignore ansible folder inside aws-build
+aws-build/ansible/
+.ansible

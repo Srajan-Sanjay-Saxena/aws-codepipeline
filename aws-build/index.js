@@ -8,7 +8,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the Express server!");
+  res.status(200).send("Welcome to the Express server!");
 });
 
 app.get("/hello", (req, res) => {
