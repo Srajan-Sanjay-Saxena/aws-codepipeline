@@ -42,6 +42,6 @@
 - name: Setup CodeDeploy agent
   ansible.builtin.command: ./agent.sh
   args:
-    chdir: /home/ubuntu/codepipeline/aws-build/ansible
+    chdir: /home/ubuntu/codepipeline/aws-build/
   register: codedeploy_agent
   changed_when: "'Installing codedeploy-agent' in codedeploy_agent.stdout"
