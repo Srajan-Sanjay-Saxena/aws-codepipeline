@@ -1,2 +1,0 @@
-github_pat: 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
-github_repo: "https://{{ github_pat }}@github.com/Srajan-Sanjay-Saxena/aws-codepipeline.git"
