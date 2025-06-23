@@ -1,0 +1,47 @@
+---
+- name: Updating the OS and installing Git
+  ansible.builtin.apt:
+    name: git
+    update_cache: true
+    state: present
+
+- name: Cloning the repo
+  ansible.builtin.git:
+    repo: "{{ github_repo }}"
+    dest: /home/ubuntu/codepipeline
+    version: main
+
+- name: Installing Node.js and npm
+  ansible.builtin.apt:
+    name:
+      - nodejs
+      - npm
+    state: present
+
+- name: Install PM2 globally
+  ansible.builtin.npm:
+    name: pm2
+    global: true
+
+- name: Run index.js using PM2
+  ansible.builtin.command: pm2 restart myapp
+  args:
+    chdir: /home/ubuntu/codepipeline/aws-build
+  changed_when: false
+
+- name: Save PM2 process list
+  ansible.builtin.command: pm2 save
+  changed_when: false
+
+- name: Setup PM2 to start on boot
+  ansible.builtin.command: |
+    pm2 startup systemd -u ubuntu --hp /home/ubuntu
+  changed_when: false
+
+
+- name: Setup CodeDeploy agent
+  ansible.builtin.command: ./agent.sh
+  args:
+    chdir: /home/ubuntu/codepipeline/aws-build/
+  register: codedeploy_agent
+  changed_when: "'Installing codedeploy-agent' in codedeploy_agent.stdout"

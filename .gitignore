@@ -5,7 +5,7 @@ aws-build/node_modules/
 .vscode/
 
 # Ignore ansible folder completely inside aws-build (or just specific roles if that's your goal)
-aws-build/ansible/
+aws-build/ansible/roles/github/vars/**
 
 # OR if you truly want to ignore only the vars under a specific role
 # aws-build/ansible/roles/github/vars/**
